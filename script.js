@@ -5,12 +5,23 @@ function computerPlay(){
     return randomChoice
 }
 
-function playRound(playerSelection, computerSelection) {
-    computerSelection = computerPlay();
-    playerSelection = "";
-    playerSelection = prompt("Select option: ");
 
-    switch (playerSelection.toLowerCase() ) {
+
+const button = document.querySelectorAll('button');
+console.log(button);
+//buttonRock.addEventListener('click', playRound   )
+button.forEach(index => index.addEventListener('click', (event) => {
+    playRound(event);    
+}
+)
+)
+
+
+function playRound(event) {
+    let computerSelection = computerPlay();
+    //playerSelection = "";
+    let playerSelection = event.target.id;
+    switch (playerSelection ) {
         case "rock" : 
             if (computerSelection == "Rock") {
                 outcome = "It is a Tie!";
@@ -21,7 +32,7 @@ function playRound(playerSelection, computerSelection) {
                 console.log(outcome);
             }
             else {
-                outcome ="You Lose! Paper beats Scissors" ;
+                outcome ="You Lose! Paper beats Rock" ;
                 console.log(outcome);
             }
             break;
@@ -35,7 +46,7 @@ function playRound(playerSelection, computerSelection) {
                 console.log(outcome);
             }
             else {
-                outcome ="It is a tie!" ;
+                outcome ="It is a Tie!" ;
                 console.log(outcome);
             }
             break;
@@ -45,7 +56,7 @@ function playRound(playerSelection, computerSelection) {
                 console.log(outcome);
             }
             else if (computerSelection == "Paper")  {
-                outcome ="It is a tie!" ;
+                outcome ="It is a Tie!" ;
                 console.log(outcome);
             }
             else {
@@ -57,33 +68,13 @@ function playRound(playerSelection, computerSelection) {
             outcome = "Enter Valid Option.";
             console.log(outcome); 
     }
+    displayResults();
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let gameNumber = 0; gameNumber < 5; ) {
-        playRound();
-        if ( !(outcome.search("Win") == -1) ) {
-            playerScore++ ;
-            gameNumber++ ;
-        }
-        else if ( !(outcome.search("Lose") == -1) ) {
-            computerScore++ ;
-            gameNumber++ ;
-        } 
-        else if ( !(outcome.search("Tie") == -1 ) ) {
-            gameNumber++ ;
-        }
-        console.log(`
-            Your Score =  ${playerScore}
-            Computer Score = ${computerScore}  
-            `);
-    }
-    if ( playerScore > computerScore ) {
-        console.log("Congratulations! You won the game!");
-    }
-    else {
-        console.log("Woo, Computer WON!");
-    }
+function displayResults() {
+    const div = document.createElement('div');
+    const body = document.querySelector('body');
+    div.style.cssText = 'color: white';
+    div.textContent = outcome;
+    body.appendChild(div);
 }
