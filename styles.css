@@ -1,0 +1,33 @@
+.button {
+    margin-left: 3vw;
+    border-radius: 5px;
+    background-color: slategrey;
+    width: 90vw;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 3px solid white;
+    padding: 5px;
+}
+
+.rock {
+    width: 30%;
+    border-radius: 5px;
+    border: 5px solid gray;
+    background-color: white;
+}
+
+.paper {
+    width: 30%;
+    border-radius: 5px;
+    border: 5px solid gray;
+    background-color: thistle;
+}
+
+.scissors {
+    width: 30%;
+    border-radius: 5px;
+    border: 5px solid gray;
+    background-color: thistle;
+}

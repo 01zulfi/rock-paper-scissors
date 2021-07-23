@@ -5,73 +5,53 @@ function computerPlay(){
     return randomChoice
 }
 
-
-
 const button = document.querySelectorAll('button');
-console.log(button);
-//buttonRock.addEventListener('click', playRound   )
 button.forEach(index => index.addEventListener('click', (event) => {
-    
-    game();   
- 
-}
-)
-)
+    game(); 
+}));
 
 
 function playRound(event) {
     let computerSelection = computerPlay();
-    //playerSelection = "";
     let playerSelection = event.target.id;
     switch (playerSelection ) {
         case "rock" : 
             if (computerSelection == "Rock") {
                 outcome = "It is a Tie!";
-                console.log(outcome);
             }
             else if (computerSelection == "Scissors") {
                 outcome ="You Win! Rock beats Scissors" ;
-                console.log(outcome);
             }
             else {
                 outcome ="You Lose! Paper beats Rock" ;
-                console.log(outcome);
             }
             break;
         case "scissors" :
             if (computerSelection == "Rock")  {
                 outcome ="You Lose! Rock beats Scissors" ;
-                console.log(outcome);
             }
             else if (computerSelection == "Paper")  {
-                outcome ="You Win! Scissors beat Paper"; 
-                console.log(outcome);
+                outcome ="You Win! Scissors beat Paper";
             }
             else {
                 outcome ="It is a Tie!" ;
-                console.log(outcome);
             }
             break;
         case "paper" :
             if (computerSelection == "Rock")  {
                 outcome ="You Win! Paper beats Rock" ;
-                console.log(outcome);
             }
             else if (computerSelection == "Paper")  {
                 outcome ="It is a Tie!" ;
-                console.log(outcome);
             }
             else {
                 outcome ="You Lose! Scissors beat Paper" ;
-                console.log(outcome);
             }
             break;
         default: 
             outcome = "Enter Valid Option.";
-            console.log(outcome); 
     }
     displayResults();
-    //game();
 }
 
 function displayResults() {
@@ -87,60 +67,35 @@ function displayResults() {
     body.appendChild(roundResult);
 }
 
-//function game() {
-  //  let playerScore = 0;
-    //let computerScore = 0;
-    //let searchFrom = document.querySelector('p')
-    //let gameResult = document.createElement('div');
-    //for ( let gameNumber = 1; gameNumber <=5;) {
-      //  if ( searchFrom.search() == 'win') {
-        //    playerScore++
-        //}
-
-
-    //}
-//}
 let playerScore = 0;
 let computerScore = 0;
+let noScore = 0;
 function game() {
-
     playRound(event);
     if ( !(outcome.search("Win") == -1) ) {
         playerScore++ ;
-        
     }
     else if ( !(outcome.search("Lose") == -1) ) {
         computerScore++ ;
-        
     } 
-    else if ( !(outcome.search("Tie") == -1 ) ) {
-        
+    else if ( !(outcome.search("Tie")==-1)){
+        let totalGames = playerScore + computerScore;
+        if (totalGames % 5==0) {
+            noScore = 1;
+        }
     }
-    console.log(`
-        Your Score =  ${playerScore}
-        Computer Score = ${computerScore}  
-        `);
     roundScore();
     winOrLose();
-    //if ( playerScore > computerScore ) {
-      //  console.log("Congratulations! You won the game!");
-    //}
-    //else {
-      //  console.log("Woo, Computer WON!");
-    //}
 }
 
 function roundScore() {
-    if (document.querySelectorAll('p')) {
-       let pRemove = document.querySelectorAll('p');
-       pRemove.forEach( index => index.remove());
+    if (document.querySelector('.score')) {
+       let scoreRemove = document.querySelector('.score');
+       scoreRemove.remove();
     }
-    let gameResultDiv = document.querySelector('.gameResult');
-    if (gameResultDiv) {
-        gameResultDiv.remove();
-    } 
     const body = document.querySelector('body');
     const div = document.createElement('div');
+    div.classList.add('score');
     const playerScoreP = document.createElement('p');
     const computerScoreP = document.createElement('p');
     playerScoreP.style.cssText = 'color: white';
@@ -153,18 +108,30 @@ function roundScore() {
 }
 
 function winOrLose() {
-    if (playerScore + computerScore == 5) {
+    totalGames = playerScore + computerScore;
+    let gameResultDiv = document.querySelector('.gameResult');
+    if (gameResultDiv) {
+        gameResultDiv.remove();
+    } 
+    if ( totalGames % 5 == 0) {
+        if ( !(noScore == 0)) {
+            noScore = 0;
+            return
+        }
         const div = document.createElement('div');
         const body = document.querySelector('body');
         div.style.cssText = 'color: white';
         div.classList.add('gameResult');
         if (playerScore < computerScore) {
+            playerScore = 0;
+            computerScore = 0;
             div.textContent = 'You Lost! Computer Won...';
         } 
-        else {
+        else if (playerScore > computerScore){
+            playerScore = 0;
+            computerScore = 0;
             div.textContent = 'You Won! Congratulations';
         }
         body.appendChild(div);
-
     }
 }
