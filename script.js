@@ -1,16 +1,14 @@
-let playerScore = 0; //gets updated in game(); gets used in roundScore() and winOrLose(); 
-                     //value resets after each game
-let computerScore = 0;  //gets updated in game(); gets used in roundScore() and winOrLose();
-                        //value resets after each game
-
-function computerPlay(){    //to select random option for computer
+let playerScore = 0;  
+let computerScore = 0;
+                      
+function computerPlay(){   
     const options = ["Rock", "Paper", "Scissors"];
     let randomIndex = Math.floor(Math.random() * options.length );
     let randomChoice = options[randomIndex];
     return randomChoice
 }
 
-function displayResults() {     //to display round result e.g It's a tie
+function displayResults() {    
     if (document.querySelector('.roundResult')) {
         let divRemove = document.querySelector('.roundResult');
         divRemove.remove();
@@ -22,11 +20,9 @@ function displayResults() {     //to display round result e.g It's a tie
     body.appendChild(roundResult);
 }
 
-function playRound(event) {     //determine winner of round, use displayResults() 
-                                //event is an object, will get from callback function in .addEventListener
+function playRound(event) {     
     let computerSelection = computerPlay();
-    let playerSelection = event.target.getAttribute('alt'); //gets image element inside button element, then
-                                                            //gets alt value of image element
+    let playerSelection = event.currentTarget.getAttribute('value');
     switch (playerSelection ) {
         case "rock" : 
             if (computerSelection == "Rock") {
@@ -65,8 +61,7 @@ function playRound(event) {     //determine winner of round, use displayResults(
     displayResults();
 }
 
-function roundScore() {     //display score afer each round (deletes previous score to create a new one)
-                            //creates div element and four p elements inside
+function roundScore() {  
     if (document.querySelector('.score')) {
        let scoreRemove = document.querySelector('.score');
        scoreRemove.remove();
@@ -96,9 +91,7 @@ function roundScore() {     //display score afer each round (deletes previous sc
     body.appendChild(div);
 }
 
-function winOrLose() {      //determine winner of a game (1 game is first to three points ) and displays it   
-                            //if function not returned, will delete element with class 'roundResult' and 
-                            //create element with class 'gameResult' in its place
+function winOrLose() {         
     let gameResultDiv = document.querySelector('.gameResult');
     if (gameResultDiv) {
         gameResultDiv.remove();
@@ -118,7 +111,7 @@ function winOrLose() {      //determine winner of a game (1 game is first to thr
             div.textContent = 'You Won! Congratulations';
         }
         let gameEnd = document.querySelector('.score');
-        gameEnd.classList.add('gameEnd');       //add class to score for styling purposes
+        gameEnd.classList.add('gameEnd');      
         let roundResult = document.querySelector('.roundResult');
         roundResult.remove();
         let scoreNode = document.querySelector('.score');
@@ -126,8 +119,7 @@ function winOrLose() {      //determine winner of a game (1 game is first to thr
     }
 }
 
-function game() {   //keep track of round score, will use playRound() roundScore() winOrLose() functions
-                    //displays roundResult, score and gameEnd (when applicable)
+function game() {  
     playRound(event); 
     if ( !(outcome.search("Win") == -1) ) {
         playerScore++ ;
@@ -140,7 +132,6 @@ function game() {   //keep track of round score, will use playRound() roundScore
 }
 
 const button = document.querySelectorAll('button');
-button.forEach(index => index.addEventListener('click', (event) => { //iterate over NodeList to run game() when
-                                                                     //a button is clicked
+button.forEach(index => index.addEventListener('click', (event) => { 
     game(); 
 }));
