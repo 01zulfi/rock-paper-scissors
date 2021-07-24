@@ -1,33 +1,91 @@
+body {
+    position: relative;
+    left: 20vw;
+    width: fit-content;
+    padding-right: 100px;
+    padding-left: 40px
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Ruslan Display', sans-serif;
+}
+
 .button {
-    margin-left: 3vw;
-    border-radius: 5px;
-    background-color: slategrey;
-    width: 90vw;
-    height: 30px;
+    height: 225px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    border: 3px solid white;
+    gap: 25px;
     padding: 5px;
+    margin-left: 8px;
 }
 
-.rock {
-    width: 30%;
-    border-radius: 5px;
-    border: 5px solid gray;
+.button :hover {
+    border: 5px solid black;
+}
+
+.roundResult {
+    font-family: 'Tourney', sans-serif;
+    font-size: 30px;
+    margin-top: 20px;
+    width: 730px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.score {
+    color: white;
+    display: grid;
+    margin-top: 25px;
+    grid-template-rows: 50px 100px;
+    grid-template-columns: 365px 365px;
+    grid-template-areas: "playerText computerText"
+                          "playerScore computerScore";
+}
+
+
+.playerScoreText {
+    grid-area: playerText;
+    justify-self: center;
+}
+
+.playerScoreNumber {
+    grid-area: playerScore;
+    font-size: 60px;
+    font-family: 'Caveat', sans-serif;
+    justify-self: center;
+    margin-top: 10px;
+}
+
+.computerScoreText {
+    grid-area: computerText;
+    justify-self: center;
+}
+
+.computerScoreNumber {
+    grid-area: computerScore;
+    font-size: 60px;
+    font-family: 'Caveat', sans-serif;
+    justify-self: center;
+    margin-top: 10px;
+}
+
+.score.gameEnd {
+    color: silver;
+    background-color: rgba(232, 232, 232, 0.1);
+    border: 1px solid white;
+}
+
+.gameResult {
+    color: rgba(46, 49, 49, 1);
     background-color: white;
-}
-
-.paper {
-    width: 30%;
-    border-radius: 5px;
-    border: 5px solid gray;
-    background-color: thistle;
-}
-
-.scissors {
-    width: 30%;
-    border-radius: 5px;
-    border: 5px solid gray;
-    background-color: thistle;
+    font-family: 'Permanent Marker', sans-serif;
+    font-size: 30px;
+    margin-top: 20px;
+    width: 730px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

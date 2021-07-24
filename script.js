@@ -13,7 +13,7 @@ button.forEach(index => index.addEventListener('click', (event) => {
 
 function playRound(event) {
     let computerSelection = computerPlay();
-    let playerSelection = event.target.id;
+    let playerSelection = event.target.getAttribute('alt');
     switch (playerSelection ) {
         case "rock" : 
             if (computerSelection == "Rock") {
@@ -48,8 +48,6 @@ function playRound(event) {
                 outcome ="You Lose! Scissors beat Paper" ;
             }
             break;
-        default: 
-            outcome = "Enter Valid Option.";
     }
     displayResults();
 }
@@ -96,14 +94,22 @@ function roundScore() {
     const body = document.querySelector('body');
     const div = document.createElement('div');
     div.classList.add('score');
-    const playerScoreP = document.createElement('p');
-    const computerScoreP = document.createElement('p');
-    playerScoreP.style.cssText = 'color: white';
-    playerScoreP.textContent = `Your Score =  ${playerScore}`;
-    computerScoreP.style.cssText = 'color: white';
-    computerScoreP.textContent = `Computer Score = ${computerScore} `;
-    div.appendChild(playerScoreP);
-    div.appendChild(computerScoreP);
+    const playerScoreText = document.createElement('p');
+    const computerScoreText = document.createElement('p');
+    playerScoreText.classList.add('playerScoreText');
+    playerScoreText.textContent = 'Your Score';
+    computerScoreText.classList.add('computerScoreText')
+    computerScoreText.textContent = 'Computer Score';
+    const playerScoreNumber = document.createElement('p');
+    const computerScoreNumber = document.createElement('p');
+    playerScoreNumber.classList.add('playerScoreNumber');
+    playerScoreNumber.textContent = playerScore;
+    computerScoreNumber.classList.add('computerScoreNumber');
+    computerScoreNumber.textContent = computerScore;
+    div.appendChild(playerScoreText);
+    div.appendChild(playerScoreNumber);
+    div.appendChild(computerScoreText);
+    div.appendChild(computerScoreNumber);
     body.appendChild(div);
 }
 
@@ -120,18 +126,22 @@ function winOrLose() {
         }
         const div = document.createElement('div');
         const body = document.querySelector('body');
-        div.style.cssText = 'color: white';
         div.classList.add('gameResult');
         if (playerScore < computerScore) {
             playerScore = 0;
             computerScore = 0;
-            div.textContent = 'You Lost! Computer Won...';
+            div.textContent = 'A Computer Beat You...';
         } 
         else if (playerScore > computerScore){
             playerScore = 0;
             computerScore = 0;
             div.textContent = 'You Won! Congratulations';
         }
-        body.appendChild(div);
+        let gameEnd = document.querySelector('.score');
+        gameEnd.classList.add('gameEnd');
+        let roundResult = document.querySelector('.roundResult');
+        roundResult.remove();
+        let scoreNode = document.querySelector('.score');
+        body.insertBefore(div, scoreNode);
     }
 }
